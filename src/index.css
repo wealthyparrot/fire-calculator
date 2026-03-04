@@ -25,4 +25,17 @@
   #root {
     min-height: 100vh;
   }
+
+  :root[data-embedded] {
+    background-color: transparent;
+  }
+
+  :root[data-embedded] body {
+    min-height: auto;
+    background-color: transparent;
+  }
+
+  :root[data-embedded] #root {
+    min-height: auto;
+  }
 }

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { CalculatorInputs, CalculatorResults } from './types/calculator';
 import type { Currency } from './types/currency';
 import { CalculatorForm } from './components/CalculatorForm';
 import { ResultsDisplay } from './components/ResultsDisplay';
 import { Chart } from './components/Chart';
+import { useEmbedMode } from './hooks/useEmbedMode';
 import {
   calculateFIRENumber,
   calculateYearsToFIRE,
@@ -12,10 +13,20 @@ import {
 } from './utils/fire-calculations';
 
 function App() {
+  const { isEmbedded } = useEmbedMode();
   const [results, setResults] = useState<CalculatorResults | null>(null);
   const [currency, setCurrency] = useState<Currency>('EUR');
   const [retirementAge, setRetirementAge] = useState<number>(65);
   const [monthlyContribution, setMonthlyContribution] = useState<number>(2000);
+
+  useEffect(() => {
+    if (isEmbedded) {
+      document.documentElement.setAttribute('data-embedded', '');
+    }
+    return () => {
+      document.documentElement.removeAttribute('data-embedded');
+    };
+  }, [isEmbedded]);
 
   const handleCalculate = (inputs: CalculatorInputs) => {
     // Update state from inputs
@@ -144,16 +155,18 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="px-4 py-8">
-        <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary mb-2">
-            FIRE Calculator
-          </h1>
-          <p className="text-gray-600">
-            Calculate your Financial Independence, Retire Early number
-          </p>
-        </header>
+    <div className={isEmbedded ? '' : 'min-h-screen bg-gray-50'}>
+      <div className={isEmbedded ? 'px-4 py-2' : 'px-4 py-8'}>
+        {!isEmbedded && (
+          <header className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-primary mb-2">
+              FIRE Calculator
+            </h1>
+            <p className="text-gray-600">
+              Calculate your Financial Independence, Retire Early number
+            </p>
+          </header>
+        )}
 
         <main className="mx-auto px-4">
           <div className="flex flex-col lg:flex-row gap-6 max-w-6xl mx-auto">
@@ -179,26 +192,39 @@ function App() {
           </div>
         </main>
 
-        <footer className="mt-12 text-center text-sm text-gray-500">
+        <footer className={`${isEmbedded ? 'mt-4' : 'mt-12'} text-center text-sm text-gray-500`}>
           <p>
             Made with data by{' '}
             <a
-              href="https://www.wealthyparrot.com"
+              href="https://www.wealthyparrot.com/resources/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:underline"
             >
               Wealthy Parrot
             </a>
-            {' · '}
+            {' \u2014 '}
             <a
-              href="https://github.com/wealthyparrot/fire-calculator"
+              href="https://www.wealthyparrot.com/resources/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:underline"
             >
-              GitHub
+              more tools
             </a>
+            {!isEmbedded && (
+              <>
+                {' · '}
+                <a
+                  href="https://github.com/wealthyparrot/fire-calculator"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  GitHub
+                </a>
+              </>
+            )}
           </p>
         </footer>
       </div>

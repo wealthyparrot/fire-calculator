@@ -126,6 +126,7 @@ describe('generateGrowthProjection', () => {
     currentSavings: 100000,
     monthlyContribution: 2000,
     annualReturn: 0.07,
+    expectedInflation: 0.02,
     safeWithdrawalRate: 0.04,
     currency: 'EUR',
     mode: 'traditional',

@@ -72,6 +72,7 @@ export function CalculatorProvider({ children }: { children: ReactNode }) {
       totalContributions,
       investmentGrowth,
       projectedNetWorth,
+      mode: newInputs.mode,
     };
 
     setResults(calculatedResults);
