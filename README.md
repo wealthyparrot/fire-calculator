@@ -1,3 +1,9 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/logo-light.png">
+  <img alt="Wealthy Parrot" src="docs/logo-light.png" width="400">
+</picture>
+
 # FIRE Calculator
 
 A data-driven FIRE (Financial Independence, Retire Early) calculator. Supports 6 currencies, includes state pension integration, and uses real (inflation-adjusted) returns.
