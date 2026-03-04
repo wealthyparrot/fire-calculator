@@ -4,6 +4,8 @@ A data-driven FIRE (Financial Independence, Retire Early) calculator. Supports 6
 
 **[Live Demo](https://wealthyparrot.github.io/fire-calculator/)** | **[Wealthy Parrot Blog](https://www.wealthyparrot.com/)**
 
+![FIRE Calculator screenshot](docs/screenshot.png)
+
 ## Why This Calculator?
 
 - Multi-currency support (EUR, USD, GBP, SEK, NOK, DKK)
